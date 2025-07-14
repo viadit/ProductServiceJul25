@@ -30,6 +30,10 @@ public class ProductController {
 
     @PostMapping("/products")
     public Product createProduct(@RequestBody CreateProductRequestDTO createProductRequestDTO) {
-        return productService.createProduct(createProductRequestDTO);
+        return productService.createProduct(createProductRequestDTO.getTitle(),
+                createProductRequestDTO.getDescription(),
+                createProductRequestDTO.getImage(),
+                createProductRequestDTO.getCategory(),
+                createProductRequestDTO.getPrice());
     }
 }
