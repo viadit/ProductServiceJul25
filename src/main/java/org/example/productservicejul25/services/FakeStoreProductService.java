@@ -18,7 +18,12 @@ public class FakeStoreProductService implements ProductService {
     }
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+    FakeStoreProductDTO[] fakeStoreProductDTOs = restTemplate.getForObject
+            ("https://fakestoreapi.com/products",
+                    FakeStoreProductDTO[].class);
+        return List.of(fakeStoreProductDTOs).stream()
+                .map(FakeStoreProductDTO::toProduct)
+                .toList();
     }
 
     @Override
