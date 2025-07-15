@@ -3,6 +3,8 @@ package org.example.productservicejul25.controllers;
 import org.example.productservicejul25.dtos.CreateProductRequestDTO;
 import org.example.productservicejul25.models.Product;
 import org.example.productservicejul25.services.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +26,17 @@ public class ProductController {
 
     // This method should return a product by its ID
     @GetMapping("/products/{id}")
-    public Product getProduct(@PathVariable("id") long id) {
-        return productService.getSingleProduct(id);
+    public ResponseEntity<Product> getProduct(@PathVariable("id") long id) {
+        Product product = productService.getSingleProduct(id);
+
+        ResponseEntity<Product> productResponseEntity;
+        if (product == null) {
+            productResponseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            productResponseEntity = new ResponseEntity<>(product, HttpStatus.OK);
+        }
+
+        return productResponseEntity;
     }
 
     @PostMapping("/products")

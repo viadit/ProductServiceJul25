@@ -3,6 +3,8 @@ package org.example.productservicejul25.services;
 import org.example.productservicejul25.dtos.CreateProductRequestDTO;
 import org.example.productservicejul25.dtos.FakeStoreProductDTO;
 import org.example.productservicejul25.models.Product;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,9 +30,22 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product getSingleProduct(long id) {
-        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject
+//        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject
+//                ("https://fakestoreapi.com/products/" + id,
+//                FakeStoreProductDTO.class);
+
+        ResponseEntity<FakeStoreProductDTO> fakeStoreProductDTOResponseEntity = restTemplate.getForEntity
                 ("https://fakestoreapi.com/products/" + id,
-                FakeStoreProductDTO.class);
+                        FakeStoreProductDTO.class);
+
+        if (fakeStoreProductDTOResponseEntity .getStatusCode() != HttpStatus.OK) {
+
+        }
+
+        FakeStoreProductDTO fakeStoreProductDTO = fakeStoreProductDTOResponseEntity.getBody();
+        if (fakeStoreProductDTO == null) {
+            return null;
+        }
         return fakeStoreProductDTO.toProduct();
     }
 
