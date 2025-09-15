@@ -1,6 +1,8 @@
 package org.example.productservicejul25.controllers;
 
 import org.example.productservicejul25.dtos.CreateProductRequestDTO;
+import org.example.productservicejul25.dtos.ErrorDTO;
+import org.example.productservicejul25.exceptions.ProductNotFoundException;
 import org.example.productservicejul25.models.Product;
 import org.example.productservicejul25.services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -47,4 +49,13 @@ public class ProductController {
                 createProductRequestDTO.getCategory(),
                 createProductRequestDTO.getPrice());
     }
+
+//    @ExceptionHandler(ProductNotFoundException.class)
+//    public ResponseEntity<ErrorDTO> handleProductNotFoundException(ProductNotFoundException exception) {
+//        ErrorDTO errorDTO = new ErrorDTO();
+//
+//        errorDTO.setMessage(exception.getMessage());
+//        ResponseEntity<ErrorDTO> errorResponseEntity = new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+//        return errorResponseEntity;
+//    }
 }

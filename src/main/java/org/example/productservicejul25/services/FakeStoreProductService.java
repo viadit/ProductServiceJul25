@@ -2,6 +2,7 @@ package org.example.productservicejul25.services;
 
 import org.example.productservicejul25.dtos.CreateProductRequestDTO;
 import org.example.productservicejul25.dtos.FakeStoreProductDTO;
+import org.example.productservicejul25.exceptions.ProductNotFoundException;
 import org.example.productservicejul25.models.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +44,8 @@ public class FakeStoreProductService implements ProductService {
         }
 
         FakeStoreProductDTO fakeStoreProductDTO = fakeStoreProductDTOResponseEntity.getBody();
-        if (fakeStoreProductDTO == null) {
-            return null;
+       if (fakeStoreProductDTO == null) {
+           throw new ProductNotFoundException("Product with " + id + " is not present with the service.");
         }
         return fakeStoreProductDTO.toProduct();
     }
