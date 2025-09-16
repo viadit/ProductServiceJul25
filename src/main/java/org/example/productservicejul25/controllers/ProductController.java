@@ -5,6 +5,7 @@ import org.example.productservicejul25.dtos.ErrorDTO;
 import org.example.productservicejul25.exceptions.ProductNotFoundException;
 import org.example.productservicejul25.models.Product;
 import org.example.productservicejul25.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class ProductController {
 
     public ProductService productService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("ownProductService") ProductService productService) {
         this.productService = productService;
     }
 
